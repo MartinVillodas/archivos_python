@@ -35,6 +35,11 @@ def ej1():
     y cumpla el objetivo especificado, retornando la cantidad
     de líneas encontradas.
     '''
+    
+    fi = open("notas.txt", "r")
+
+    fi.close()
+
 
 
 def ej2():
