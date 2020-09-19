@@ -129,27 +129,12 @@ def ej4():
     while True:
         print("El inventario de frutas/verduras actualmeten es:", inventario)
         fruta = str(input("Ingrese el nombre de una fruta/verdura o la palabra fin para salir:\n"))
-        cantidad = int(input("Ingrese la cantidad, de la fruta que eligio, que desea agregar:\n"))
-        inventario[fruta] = cantidad
-        
+
         if fruta == "fin":
             break
-
-
-
-
-
-    """while fruta_verdura != 'FIN':
-        print('\n\nEl Inventario Hasta el Momento es: {}'.format(inventario))
-        print('\n\nIngrese el Nombre de una Fruta/Verdura o Ingrese "FIN" para Salir del Programa:')
-        fruta_verdura = str(input('Luego Presione Enter para Continuar: '))
-
-        if fruta_verdura != 'FIN':          
-            stock = int(input('Ingrese Ahora el Stock de "{}" y Presione Enter Para Continuar: '.format(fruta_verdura)))
-            inventario[fruta_verdura] = stock
         else:
-            print('\n\nUsted ha Salido del Programa.\n\n') """
-
+            cantidad = int(input("Ingrese la cantidad, de la fruta que eligio, que desea agregar:\n"))
+            inventario[fruta] = cantidad
 
 def ej5():
     # Ejercicios con archivos CSV
@@ -184,28 +169,21 @@ def ej5():
     '''
     # Recuerde crear el header correspondiente con "writeheader", el cual
     # se debe especificar al abrir el archivo.
-    with open(nombre_archivo, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=header)
+
+    with open(nombre_archivo, "w", newline="") as fo:
+        writer = csv.DictWriter(fo, fieldnames=header)
         writer.writeheader()
 
-    with open(nombre_archivo, 'a', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=header)
-
-    # Bucle....
-        while fruta_verdura != 'FIN':
-            print('\n\nIngrese el Nombre de una Fruta/Verdura o Ingrese "FIN" para Salir del Programa.')
-            fruta_verdura = str(input('Luego Presione Enter para Continuar: '))
-
-            if fruta_verdura != 'FIN':          
-                stock = int(input('Ingrese Ahora el Stock de "{}" y Presione Enter Para Continuar: '.format(fruta_verdura)))
-                inventario[header[0]] = fruta_verdura
-                inventario[header[1]] = stock
-                writer.writerow(inventario)
-                gondola[fruta_verdura] = stock
+        while True:
+            print("El inventario de frutas/verduras actualmeten es:", inventario)
+            fruta = str(input("Ingrese el nombre de una fruta/verdura o la palabra fin para salir:\n"))
+            
+            if fruta == "fin":
+                break
             else:
-                print('\n\nUsted ha Salido del Programa.\n\n')
-
-    print('\n\nLa Fruta y Stock Ingresado es: {}'.format(gondola))
+                cantidad = int(input("Ingrese la cantidad, de la fruta que eligio, que desea agregar:\n"))
+                inventario[fruta] = cantidad
+                writer.writerow({"Fruta Verdura":fruta, "Cantidad":cantidad})
 
     # writer.writerow({'Fruta Verdura': ....., 'Cantidad': ....})
 
@@ -214,5 +192,5 @@ if __name__ == '__main__':
     #ej1()
     #ej2()
     #ej3()
-    ej4()
+    #ej4()
     #ej5()

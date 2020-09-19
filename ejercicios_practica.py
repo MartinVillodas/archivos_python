@@ -15,6 +15,7 @@ __author__ = "Inove Coding School"
 __email__ = "alumnos@inove.com.ar"
 __version__ = "1.2"
 
+import csv
 
 def ej1():
     print("Cuenta caracteres")
@@ -54,13 +55,21 @@ def ej2():
     NOTA: Recuerde agregar el salto de línea "\n" a cada entrada
     de texto de la consola antes de copiar la archivo.
     '''
-    with open("ej2_practica.txt", "w") as fo:
-        while True:
-            lines = []
-            contenido = str(input("Por favor ingrese lo que quiere agregar al archivo:"))
-            lines.append(contenido) 
-            fo.writelines(lines)
+    fo = open("ej2_practica.txt", "w")
+    caracteres_totales = 0
+
+    while True:
+        lines = []
+        contenido = (input("Por favor ingrese lo que quiere agregar al archivo:"))
+        lines.append(contenido + "\n") 
+        fo.writelines(lines)
+        caracteres = len(contenido)
+        caracteres_totales += caracteres
+        if contenido == "":
+            print("Se agregaron {} caracteres al archivo".format(caracteres_totales))
             break
+    fo.close()
+
 
 
 def ej3():
@@ -80,7 +89,28 @@ def ej3():
     4) Obtener el mínimo valor de alquiler en "pesos"
     de la cantidad de ambientes deseados.
     '''
+    dpto_pesos = 0 #Cantidad de dptos en pesos
+    precio_total = 0
 
+    with open("propiedades.csv", "r") as fi:
+        data = list(csv.DictReader(fi))
+        #Parte 1
+        cantidad_ambientes = int(input("Escriba la cantidad de ambientes del dpto:\n"))
+        cantidad_filas = len(data)
+        for i in range(cantidad_filas):
+            moneda = data[i]["moneda"]
+            precio = float(data[i]["precio"])
+            if moneda == "ARS":
+                dpto_pesos += 1
+                precio_total += precio
+                precio_minimo = min(data[i]["precio"])
+                precio_maximo = max(data[i]["precio"])
+
+        precio_promedio = precio_total / dpto_pesos 
+        print("La cantidad de departamentos en pesos con {} ambientes es: {}".format(cantidad_ambientes,dpto_pesos))
+        print("El precio promedio de los departamentos con {} ambientes en pesos es: {}".format(cantidad_ambientes,precio_promedio))
+        print("El precio minimo es:", precio_minimo)
+        print("El precio maximo es:", precio_maximo)
 
 def ejercicio_extra():
     print("Ahora sí! buena suerte :)")
@@ -167,6 +197,6 @@ def ejercicio_extra():
 if __name__ == '__main__':
     print("Ejercicios de práctica")
     #ej1()
-    ej2()
-    #ej3()
+    #ej2()
+    ej3()
     #ejercicio_extra()
