@@ -18,7 +18,6 @@ __version__ = "1.2"
 
 def ej1():
     print("Cuenta caracteres")
-    cantidad_letras = 0
 
     '''
     Realizar un prorgrama que cuenta la cantidad de caracteres
@@ -28,6 +27,12 @@ def ej1():
     Debe realizar la sumatoria total de la cantidad de caracteres de todas
     las líneas para obtener el total del archivo e imprimirlo en pantalla
     '''
+    cantidad_letras = 0
+    with open("texto.txt","r") as fi:
+        for line in fi:
+            cantidad_en_fila = len(line)
+            cantidad_letras += cantidad_en_fila
+    print("La cantidad total de caracteres del archivo es:",cantidad_letras)
 
 
 def ej2():
@@ -49,6 +54,13 @@ def ej2():
     NOTA: Recuerde agregar el salto de línea "\n" a cada entrada
     de texto de la consola antes de copiar la archivo.
     '''
+    with open("ej2_practica.txt", "w") as fo:
+        while True:
+            lines = []
+            contenido = str(input("Por favor ingrese lo que quiere agregar al archivo:"))
+            lines.append(contenido) 
+            fo.writelines(lines)
+            break
 
 
 def ej3():
@@ -155,6 +167,6 @@ def ejercicio_extra():
 if __name__ == '__main__':
     print("Ejercicios de práctica")
     #ej1()
-    #ej2()
+    ej2()
     #ej3()
     #ejercicio_extra()

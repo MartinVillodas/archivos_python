@@ -46,7 +46,6 @@ def ej1():
 
 def ej2():
     # Ejercicios con archivos txt
-    cantidad_lineas = 0
     '''
     Copy paste!!
     Deberá abrir dos archivo txt, uno para lectura (fi) y otro
@@ -64,10 +63,12 @@ def ej2():
     fi = open("notas.txt","r")
     fo = open("copia_nota.txt","w")
 
+    cantidad_lineas_fo = 0
+
     for linea in fi:
-        cantidad_lineas_fo = 0
         fo.writelines(linea)
-        cantidad_lineas_fo += contar_lineas(fo)
+        cantidad_lineas_fo += 1
+    print("Se copiaron {} lineas al archivo copia_nota".format(cantidad_lineas_fo))
 
     fi.close()
     fo.close()
@@ -86,11 +87,132 @@ def ej3():
     '''
     archivo = 'propiedades.csv'
     with open(archivo,"r") as propiedades:
+        data = list(csv.DictReader(propiedades))
+
+        cantidad_filas = len(data)
+        cantidad_2_ambiente = 0
+        cantidad_3_ambiente = 0
+
+        for i in range(cantidad_filas):
+            valor = data[i]["ambientes"]
+            if valor == "2":
+                cantidad_2_ambiente += 1
+            elif valor == "3":
+                cantidad_3_ambiente += 1
+        print("La cantidad de departamentos 2 ambientes es {}".format(cantidad_2_ambiente))
+        print("La cantidad de departamentos 3 ambientes es {}".format(cantidad_3_ambiente))
+
+
+def ej4():
+    # Ejercicios con diccionarios
+    inventario = {'manzanas': 6}
+    fruta_verdura = 'manzanas'
+    stock = 0
+
+    '''
+    Realice un programa que pida por consola
+    el nombre de una fruta o verdura y luego
+    pida la cantidad que hay en stock
+    Agregar al diccionario "inventario" el par:
+    <fruta>:<cantidad>
+    El diccionario "inventario" ya viene cargado
+    con el valor el stock de manzanas para que vean
+    de ejemplo.
+    Esta operacion se debe realizar en un bucle
+    hasta ingresar como fruta/verdura la palabra "FIN"
+    '''
+
+    # En el bucle realizar:
+    # Generar y completar el diccionario con las frutas y cantidades
+    # ingresadas por consola hasta ingresar la palabra "FIN"
+
+    while True:
+        print("El inventario de frutas/verduras actualmeten es:", inventario)
+        fruta = str(input("Ingrese el nombre de una fruta/verdura o la palabra fin para salir:\n"))
+        cantidad = int(input("Ingrese la cantidad, de la fruta que eligio, que desea agregar:\n"))
+        inventario[fruta] = cantidad
+        
+        if fruta == "fin":
+            break
+
+
+
+
+
+    """while fruta_verdura != 'FIN':
+        print('\n\nEl Inventario Hasta el Momento es: {}'.format(inventario))
+        print('\n\nIngrese el Nombre de una Fruta/Verdura o Ingrese "FIN" para Salir del Programa:')
+        fruta_verdura = str(input('Luego Presione Enter para Continuar: '))
+
+        if fruta_verdura != 'FIN':          
+            stock = int(input('Ingrese Ahora el Stock de "{}" y Presione Enter Para Continuar: '.format(fruta_verdura)))
+            inventario[fruta_verdura] = stock
+        else:
+            print('\n\nUsted ha Salido del Programa.\n\n') """
+
+
+def ej5():
+    # Ejercicios con archivos CSV
+    inventario = {'Fruta Verdura': 'manzana', 'Cantidad': 10}
+    gondola = {}
+    nombre_archivo = 'inventario.csv'
+    header = ['Fruta Verdura', 'Cantidad']
+    fruta_verdura = ''
+
+    '''
+    Parecido al ejercicio anterior: genere un archivo CSV
+    (abrir un archivo CSV como escritura) que posea las siguientes
+    columnas:
+    1) 'Fruta Verdura'
+    2) 'Cantidad'
+    Estas dos columnas representan el nombre de las dos "claves"
+    del diccionario, que utilizaremos para escribir en el archivo CSV:
+    writer.writerow({'Fruta Verdura': ....., 'Cantidad': ....})
+    Ojo! No es igual al diccionario del anterior ejercicio, 
+    porque el anterior usaba como "clave" el nombre de la fruta.
+    Ahora tenemos dos pares de valores "clave: valor", pueden
+    ver el inventario con el ejemplo de la manzana.
+    Deberá realizar un bucle en donde en cada iteracion del bucle
+    se le socilitará por consola que ingrese un tipo de fruta o verdura
+    y su cantidad, deberá escribir una línea en el archivo CSV (una fila)
+    con esa información ingresada.
+    El bucle finalizará cuando se ingrese como fruta o verdura
+    la palabra "FIN"
+    Al finalizar deberá tener un archivo (con el nombre que usted haya
+    elegido) con todas las filas completas en las dos columnas especificadas
+    con todas las frutas o verduras ingresadas y sus cantidades
+    '''
+    # Recuerde crear el header correspondiente con "writeheader", el cual
+    # se debe especificar al abrir el archivo.
+    with open(nombre_archivo, 'w', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=header)
+        writer.writeheader()
+
+    with open(nombre_archivo, 'a', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=header)
+
+    # Bucle....
+        while fruta_verdura != 'FIN':
+            print('\n\nIngrese el Nombre de una Fruta/Verdura o Ingrese "FIN" para Salir del Programa.')
+            fruta_verdura = str(input('Luego Presione Enter para Continuar: '))
+
+            if fruta_verdura != 'FIN':          
+                stock = int(input('Ingrese Ahora el Stock de "{}" y Presione Enter Para Continuar: '.format(fruta_verdura)))
+                inventario[header[0]] = fruta_verdura
+                inventario[header[1]] = stock
+                writer.writerow(inventario)
+                gondola[fruta_verdura] = stock
+            else:
+                print('\n\nUsted ha Salido del Programa.\n\n')
+
+    print('\n\nLa Fruta y Stock Ingresado es: {}'.format(gondola))
+
+    # writer.writerow({'Fruta Verdura': ....., 'Cantidad': ....})
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
     #ej1()
-    ej2()
+    #ej2()
     #ej3()
-    #ej4()
+    ej4()
     #ej5()
